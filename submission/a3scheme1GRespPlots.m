@@ -1,0 +1,39 @@
+z = tf('z',1/(2*pi*10000));
+
+G_0 = 1/2*(1+z^(-1));
+G_1 = 1/2*(-1+z^(-1));
+
+frequencies=(-pi:(2*pi/1000):pi);
+frequencies=frequencies(1:1000);
+frequencies2=exp(j.*frequencies);
+G_0_resp  = freqresp(G_0, frequencies2);
+G_1_resp  = freqresp(G_1, frequencies2);
+
+fignum=1;
+
+plotResp(1, fignum, 1, 1, abs(G_0_resp), frequencies, [1000], ...
+["Lowpass Filter G_0 Magnitude Response"], ...
+["Magnitude Response" ], ...
+["Discrete time frequency"],0);
+	
+angle_of_signal = angle(G_0_resp);
+	
+plotResp(1, fignum+1, 1, 1, angle_of_signal, frequencies, [1000], ...
+["Lowpass Filter G_0 Phase Response"], ...
+["Phase Response"], ...
+["Discrete time frequency"],0);
+
+
+
+plotResp(1, fignum+2, 1, 1, abs(G_1_resp), frequencies, [1000], ...
+["Highpass Filter G_1 Magnitude Response"], ...
+["Magnitude Response" ], ...
+["Discrete time frequency"],0);
+	
+angle_of_signal = angle(G_1_resp);
+	
+plotResp(1, fignum+3, 1, 1, angle_of_signal, frequencies, [1000], ...
+["Highpass Filter G_1 Phase Response"], ...
+["Phase Response"], ...
+["Discrete time frequency"],0);
+
